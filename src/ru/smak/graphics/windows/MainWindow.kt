@@ -1,6 +1,8 @@
 package ru.smak.graphics.windows
 
+import ru.smak.graphics.components.ExplicitFun
 import ru.smak.graphics.components.GraphicsPanel
+import ru.smak.graphics.components.ParametricFun
 import ru.smak.graphics.convertation.CartesianScreenPlane
 import ru.smak.graphics.painting.CartesianPainter
 import ru.smak.graphics.painting.GridPainter
@@ -9,6 +11,8 @@ import java.awt.Dimension
 import javax.swing.GroupLayout
 import javax.swing.JFrame
 import javax.swing.WindowConstants
+import kotlin.math.*
+
 
 class MainWindow : JFrame("Экзамен: КТ, 3 курс") {
 
@@ -46,6 +50,13 @@ class MainWindow : JFrame("Экзамен: КТ, 3 курс") {
         mainPanel.addPainter(cartesianP)
         val gridP = GridPainter(plane)
         mainPanel.addPainter(gridP, 0)
+        val funk = { x:Double ->  abs(x) / abs(x+1) }
+        val x = {t:Double -> cos(4*t)}
+        val y = {t:Double -> sin(4*t)}
+        val funcp = ExplicitFun(plane,funk)
+        val funct = ParametricFun(plane,x,y,-10.0,10.0)
+        mainPanel.addPainter(funct,0)
+        mainPanel.addPainter(funcp,0)
         /**
          * Добавление указателя в позицию мыши
          */
